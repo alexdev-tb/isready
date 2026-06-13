@@ -4,13 +4,13 @@
 name = "isready"
 
 [[check]]
-name = "Postgres"
+name = "Check if ssh server is up"
 type = "tcp"
 host = "localhost"
 port = 22
 
 [[check]]
-name = "Home"
+name = "Check 'HOME' env"
 type = "env"
 var = "HOME"
 
