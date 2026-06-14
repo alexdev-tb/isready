@@ -5,9 +5,14 @@ use std::time::Duration;
 impl Checkable for Check {
     fn run(&self) -> bool {
         match self {
-            Check::Tcp { host, port, .. } => {
+            Check::Tcp {
+                host,
+                port,
+                timeout,
+                ..
+            } => {
                 let address = format!("{}:{}", host, port);
-                is_port_reachable_with_timeout(address, Duration::from_secs(5))
+                is_port_reachable_with_timeout(address, Duration::from_secs(*timeout))
             }
             Check::Env { var, .. } => std::env::var(var).is_ok(),
             Check::Binary { executable, .. } => which::which(executable).is_ok(),

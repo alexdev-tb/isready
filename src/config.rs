@@ -14,6 +14,10 @@ pub trait Checkable {
     fn run(&self) -> bool;
 }
 
+fn default_timeout() -> u64 {
+    3
+}
+
 #[derive(Deserialize, Debug)]
 #[serde(tag = "type", rename_all = "snake_case")]
 pub enum Check {
@@ -25,6 +29,8 @@ pub enum Check {
         name: String,
         host: String,
         port: u16,
+        #[serde(default = "default_timeout")]
+        timeout: u64,
     },
     Binary {
         name: String,

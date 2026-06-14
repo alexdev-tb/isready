@@ -8,6 +8,8 @@ name = "Check if ssh server is up"
 type = "tcp"
 host = "localhost"
 port = 22
+# Timeout in seconds
+timeout = 10
 
 [[check]]
 name = "Check 'HOME' env"
