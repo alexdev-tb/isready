@@ -1,3 +1,4 @@
+mod checks;
 mod config;
 
 use colored::Colorize;
