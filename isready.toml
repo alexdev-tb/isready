@@ -21,4 +21,4 @@ name = "Check if the binary 'ls' exists"
 type = "binary"
 executable = "ls"
 # Optional args field
-args = "-lh"
+args = ["-lh"]
