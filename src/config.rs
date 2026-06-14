@@ -35,5 +35,7 @@ pub enum Check {
     Binary {
         name: String,
         executable: String,
+        #[serde(default)]
+        args: Vec<String>,
     },
 }

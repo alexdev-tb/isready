@@ -1,6 +1,10 @@
 use crate::config::*;
 use port_check::*;
-use std::time::Duration;
+use std::{process::Command, time::Duration};
+
+fn check_binary(executable: &str, args: &[String]) -> bool {
+    Command::new(executable).args(args).output().is_ok()
+}
 
 impl Checkable for Check {
     fn run(&self) -> bool {
@@ -15,7 +19,9 @@ impl Checkable for Check {
                 is_port_reachable_with_timeout(address, Duration::from_secs(*timeout))
             }
             Check::Env { var, .. } => std::env::var(var).is_ok(),
-            Check::Binary { executable, .. } => which::which(executable).is_ok(),
+            Check::Binary {
+                executable, args, ..
+            } => check_binary(executable, args),
         }
     }
 }
