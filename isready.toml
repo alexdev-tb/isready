@@ -1,5 +1,8 @@
 # Default structure isready.toml files should follow. This file contains all supported checks.
 
+# [project] - contains config about current project
+# [[check]] - config about a check.
+
 [project]
 name = "isready"
 
@@ -22,3 +25,4 @@ type = "binary"
 executable = "ls"
 # Optional args field
 args = ["-lh"]
+output = true
