@@ -3,6 +3,7 @@ mod config;
 
 use colored::Colorize;
 use config::*;
+use std::io::{self, Write};
 fn main() {
     let contents = std::fs::read_to_string("isready.toml").unwrap();
     let parsed: Config = toml::from_str(&contents).unwrap();
@@ -13,6 +14,7 @@ fn main() {
     );
     for check in parsed.check {
         print!("{}:  ", check.name().bold());
+        io::stdout().flush().unwrap();
         let run = check.run();
         if run {
             println!("{}", "passed".green())
