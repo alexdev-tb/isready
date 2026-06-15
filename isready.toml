@@ -22,3 +22,4 @@ type = "binary"
 executable = "ls"
 # Optional args field
 args = ["-lh"]
+output = true
