@@ -3,8 +3,15 @@ mod config;
 
 use colored::Colorize;
 use config::*;
-use std::io::{self, Write};
+use std::{
+    fs,
+    io::{self, Write},
+};
 fn main() {
+    if !fs::exists("isready.toml").unwrap() {
+        println!("{}", "Config file not found!".red());
+        return;
+    }
     let contents = std::fs::read_to_string("isready.toml").unwrap();
     let parsed: Config = toml::from_str(&contents).unwrap();
     println!(

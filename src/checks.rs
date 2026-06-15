@@ -1,9 +1,23 @@
 use crate::config::*;
 use port_check::*;
-use std::{process::Command, time::Duration};
+use std::{
+    io::{self, Write},
+    process::Command,
+    time::Duration,
+};
 
-fn check_binary(executable: &str, args: &[String]) -> bool {
-    Command::new(executable).args(args).output().is_ok()
+fn check_binary(executable: &str, args: &[String], output: bool) -> bool {
+    let result = Command::new(executable).args(args).output();
+    match result {
+        Ok(out) => {
+            if output {
+                io::stdout().write_all(&out.stdout).unwrap();
+                io::stderr().write_all(&out.stderr).unwrap();
+            }
+            out.status.success()
+        }
+        Err(_) => false,
+    }
 }
 
 impl Checkable for Check {
@@ -20,8 +34,11 @@ impl Checkable for Check {
             }
             Check::Env { var, .. } => std::env::var(var).is_ok(),
             Check::Binary {
-                executable, args, ..
-            } => check_binary(executable, args),
+                executable,
+                args,
+                output,
+                ..
+            } => check_binary(executable, args, *output),
         }
     }
 }

@@ -37,5 +37,6 @@ pub enum Check {
         executable: String,
         #[serde(default)]
         args: Vec<String>,
+        output: bool,
     },
 }
