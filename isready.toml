@@ -20,6 +20,7 @@ var = "HOME"
 name = "Check if the binary 'ls' exists"
 type = "binary"
 executable = "ls"
-# Optional args field
+# Optional args config
 args = ["-lh"]
-output = true
+# Output output config - "true" to show command output, or "false" to not show it
+output = false

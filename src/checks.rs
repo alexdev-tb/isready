@@ -1,16 +1,20 @@
 use crate::config::*;
 use port_check::*;
-use std::{io::{self, Write},process::Command, time::Duration};
+use std::{
+    io::{self, Write},
+    process::Command,
+    time::Duration,
+};
 
 fn check_binary(executable: &str, args: &[String], output: bool) -> bool {
-    let result= Command::new(executable).args(args).output();
+    let result = Command::new(executable).args(args).output();
     match result {
         Ok(out) => {
             if output {
                 io::stdout().write_all(&out.stdout).unwrap();
                 io::stderr().write_all(&out.stderr).unwrap();
             }
-                out.status.success()
+            out.status.success()
         }
         Err(_) => false,
     }
